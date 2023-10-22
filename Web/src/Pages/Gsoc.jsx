@@ -180,12 +180,12 @@ export default function Gsoc() {
                     sx={{
                         flexGrow: 1,
                         overflow: 'auto',
-                        backgroundColor: '#183D3D',
+                        backgroundColor: '#183D3D', // Set background color
                         padding: '30px',
                         display: 'flex',
                         flexWrap: 'wrap',
                         justifyContent: 'space-around',
-                        paddingTop: "70px",
+                        paddingTop: '70px',
                     }}
                 >
                     {data.organizations.map((organization) => (
@@ -199,16 +199,19 @@ export default function Gsoc() {
 
 function Org(props) {
     return (
-        <Card style={{
-            margin: 25,
-            width: 300,
-            minHeight: 200,
-            marginTop: 45,
-
-        }}
-              onClick={() => {
-                  window.location.href = props.org.url;
-              }}
+        <Card
+            style={{
+                margin: 25,
+                width: 300,
+                minHeight: 200,
+                marginTop: 45,
+                backgroundColor: 'rgba(4, 13, 18, 0.7)', // Set card background color with alpha (transparency)
+                color: '#93B1A6', // Set text color
+                cursor: 'pointer', // Add pointer cursor on hover
+            }}
+            onClick={() => {
+                window.location.href = props.org.url;
+            }}
         >
             <CardActionArea>
                 <CardMedia
@@ -218,10 +221,10 @@ function Org(props) {
                     alt="Organization Image"
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5" component="div" color={"white"}>
                         {props.org.name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="white">
                         {props.org.description}
                     </Typography>
                 </CardContent>
