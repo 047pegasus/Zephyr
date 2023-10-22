@@ -117,10 +117,13 @@ export default function Gsoc() {
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Box sx={{ display: 'flex',
-
+            <CssBaseline />
+            <Box sx={{
+                display: 'flex',
+                overflow: 'hidden', // Hide the scrollbar
+                width: '100vw', // Full width of the viewport
+                height: '100vh', // Full height of the viewport
             }}>
-                <CssBaseline />
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
@@ -176,9 +179,7 @@ export default function Gsoc() {
                     component="main"
                     sx={{
                         flexGrow: 1,
-                        height: '100vh',
-                        width: '95vw',
-                        overflow: 'auto',
+                        overflow: 'auto', // Add scrolling to the main content
                         backgroundColor: '#183D3D',
                         padding: '30px',
                         display: 'flex',
@@ -187,7 +188,6 @@ export default function Gsoc() {
                         paddingTop: "70px",
                     }}
                 >
-                    {console.log(data)}
                     {data.organizations.map((organization) => (
                         <Org key={organization.id} org={organization} />
                     ))}
