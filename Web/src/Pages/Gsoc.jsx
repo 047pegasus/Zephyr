@@ -15,7 +15,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems } from './listItems.jsx';
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material";
+import {Card, CardActionArea, CardContent, CardMedia, MenuItem, Select} from "@mui/material";
 
 function Copyright(props) {
     return (
@@ -100,8 +100,13 @@ const defaultTheme = createTheme({
 export default function Gsoc() {
     const [open, setOpen] = React.useState(true);
     const [data, setData] = useState([]);
+    const [selectedYear, setSelectedYear] = useState(2022);
     const toggleDrawer = () => {
         setOpen(!open);
+    };
+
+    const handleYearChange = (event) => {
+        setSelectedYear(event.target.value);
     };
 
     useEffect(() => {
@@ -151,9 +156,59 @@ export default function Gsoc() {
                         >
                             GSOC ORGS
                         </Typography>
-                        <IconButton color="inherit">
-
-                        </IconButton>
+                        <Select
+                            value={selectedYear}
+                            onChange={handleYearChange}
+                            displayEmpty
+                            inputProps={{ 'aria-label': 'Select year' }}
+                            sx={{
+                                color: '#93B1A6',
+                                '&:before': {
+                                    borderBottomColor: 'black',
+                                },
+                                '&:after': {
+                                    borderBottomColor: 'black',
+                                },
+                                padding: 0,
+                                margin: 0,
+                            }}
+                            renderValue={(selected) => (
+                                <span
+                                    sx={{
+                                        color: '#183D3D',
+                                        backgroundColor: '#183D3D',
+                                    }}
+                                >
+            {selected}
+        </span>
+                            )}
+                        >
+                            <MenuItem value="" sx={{
+                                color: 'White',
+                                backgroundColor: '#183D3D',
+                                padding: 0,
+                                margin: 0,
+                                '&.Mui-selected, &:hover': {
+                                    backgroundColor: '#183D3D',
+                                },
+                            }}>
+                                Select Year
+                            </MenuItem>
+                            {[2016, 2017, 2018, 2019, 2020, 2021, 2022].map((year) => (
+                                <MenuItem key={year} value={year} sx={{
+                                    color: 'white',
+                                    backgroundColor: '#183D3D',
+                                    '&.Mui-selected': {
+                                        backgroundColor: '#1E4D4D',
+                                    },
+                                    '&:hover': {
+                                        backgroundColor: '#183D3D',
+                                    },
+                                }}>
+                                    {year}
+                                </MenuItem>
+                            ))}
+                        </Select>
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>
@@ -180,7 +235,7 @@ export default function Gsoc() {
                     sx={{
                         flexGrow: 1,
                         overflow: 'auto',
-                        backgroundColor: '#183D3D', // Set background color
+                        backgroundColor: '#183D3D',
                         padding: '30px',
                         display: 'flex',
                         flexWrap: 'wrap',
@@ -188,9 +243,13 @@ export default function Gsoc() {
                         paddingTop: '70px',
                     }}
                 >
-                    {data.organizations.map((organization) => (
-                        <Org key={organization.id} org={organization} />
-                    ))}
+                    {data && data.organizations && data.organizations.length > 0 ? (
+                        data.organizations.map((organization) => (
+                            <Org key={organization.id} org={organization} />
+                        ))
+                    ) : (
+                        <p>Loading ......</p>
+                    )}
                 </Box>
             </Box>
         </ThemeProvider>
@@ -205,9 +264,9 @@ function Org(props) {
                 width: 300,
                 minHeight: 200,
                 marginTop: 45,
-                backgroundColor: 'rgba(4, 13, 18, 0.7)', // Set card background color with alpha (transparency)
-                color: '#93B1A6', // Set text color
-                cursor: 'pointer', // Add pointer cursor on hover
+                backgroundColor: 'rgba(4, 13, 18, 0.7)',
+                color: '#93B1A6',
+                cursor: 'pointer',
             }}
             onClick={() => {
                 window.location.href = props.org.url;
