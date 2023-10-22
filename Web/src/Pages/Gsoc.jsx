@@ -99,7 +99,7 @@ const defaultTheme = createTheme({
 
 export default function Gsoc() {
     const [open, setOpen] = React.useState(true);
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
     const toggleDrawer = () => {
         setOpen(!open);
     };
@@ -186,7 +186,20 @@ export default function Gsoc() {
                         justifyContent: 'space-around',
                     }}
                 >
-                    {}
+                    {console.log(data)}
+                    {data.organizations.map((organization, index) => (
+                        <Card key={index} sx={{ maxWidth: 345, margin: 2 }}>
+                            <img src={organization.image_url} alt={organization.name} style={{ maxWidth: '100%', height: 'auto' }} />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    {organization.name}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {organization.description}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    ))}
                 </Box>
             </Box>
         </ThemeProvider>
