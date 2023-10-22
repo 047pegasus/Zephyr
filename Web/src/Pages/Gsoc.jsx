@@ -15,6 +15,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems } from './listItems.jsx';
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {Card, CardContent} from "@mui/material";
 
 function Copyright(props) {
     return (
@@ -98,7 +99,7 @@ const defaultTheme = createTheme({
 
 export default function Gsoc() {
     const [open, setOpen] = React.useState(true);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState();
     const toggleDrawer = () => {
         setOpen(!open);
     };
@@ -106,7 +107,8 @@ export default function Gsoc() {
     useEffect(() => {
         axios.get("http://localhost:5000/data")
             .then((res) => {
-                setData(res.data);
+                const orgData = res.data;
+                setData(orgData);
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
@@ -184,7 +186,7 @@ export default function Gsoc() {
                         justifyContent: 'space-around',
                     }}
                 >
-                    {console.log(data)}
+                    {}
                 </Box>
             </Box>
         </ThemeProvider>
