@@ -8,7 +8,9 @@ app.use(cors({ origin: "*" }));
 
 app.get("/data", async (req, res) => {
     try {
-        const response = await axios.get("https://api.gsocorganizations.dev/2022.json");
+        const year = req.headers.year || 2022;
+        const response = await axios.get(`https://api.gsocorganizations.dev/${year}.json`);
+
         const organizationsData = response.data.organizations || [];
         res.json({ organizations: organizationsData });
     } catch (error) {
