@@ -14,7 +14,7 @@ class _LeaderboardState extends State<Leaderboard> {
     backgroundColor: Colors.black,
       body: Container(
         alignment: Alignment.center,
-        child: Text("leaderboard",style: TextStyle(color: Colors.white)),)
+        child: const Text("leaderboard",style: TextStyle(color: Colors.white)),)
     );
   }
 }

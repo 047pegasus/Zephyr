@@ -14,7 +14,7 @@ class _ToolsState extends State<Tools> {
       backgroundColor:Colors.black,
       body: Container(
         alignment: Alignment.center,
-        child: Text("Tools Page",style: TextStyle(color: Colors.white)),
+        child: const Text("Tools Page",style: TextStyle(color: Colors.white)),
       ),
     );
   }

@@ -5,7 +5,7 @@ import 'dart:convert';
 class Dashboard extends StatelessWidget {
   final String username;
 
-  Dashboard(this.username);
+  const Dashboard(this.username, {Key? key}) : super(key: key);
 
   Future<Map<String, dynamic>> fetchUserData() async {
     final response = await http.get(Uri.parse('https://api.github.com/users/$username'));
@@ -23,7 +23,7 @@ class Dashboard extends StatelessWidget {
       future: fetchUserData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else {
@@ -32,123 +32,55 @@ class Dashboard extends StatelessWidget {
           return Scaffold(
             backgroundColor: MyColors.darkGrey,
             appBar: AppBar(
-              title: Text("GitHub Profile"),
+              title: const Text("GitHub Profile"),
               backgroundColor: MyColors.navyBlue,
             ),
-            body: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(userData['avatar_url']),
-                    radius: 60,
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    "Name: ${userData['name'] ?? 'N/A'}",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: MyColors.darkCyan,
-                      fontFamily: 'Pacifico',
+            body: SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(userData['avatar_url']),
+                        radius: 60,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
-                    ),
-                    itemCount: 7,
-                    itemBuilder: (context, index) {
-                      String fieldTitle;
-                      String fieldValue;
-
-                      switch (index) {
-                        case 0:
-                          fieldTitle = 'Location';
-                          fieldValue = userData['location'] ?? 'N/A';
-                          break;
-                        case 1:
-                          fieldTitle = 'Bio';
-                          fieldValue = userData['bio'] ?? 'N/A';
-                          break;
-                        case 2:
-                          fieldTitle = 'Followers';
-                          fieldValue = '${userData['followers'] ?? 0}';
-                          break;
-                        case 3:
-                          fieldTitle = 'Following';
-                          fieldValue = '${userData['following'] ?? 0}';
-                          break;
-                        case 4:
-                          fieldTitle = 'Public Repositories';
-                          fieldValue = '${userData['public_repos'] ?? 0}';
-                          break;
-                        case 5:
-                          fieldTitle = 'Public Gists';
-                          fieldValue = '${userData['public_gists'] ?? 0}';
-                          break;
-                        case 6:
-                          fieldTitle = 'Website';
-                          fieldValue = userData['blog'] ?? 'N/A';
-                          break;
-                        default:
-                          fieldTitle = '';
-                          fieldValue = '';
-                          break;
-                      }
-
-                      return Container(
-                        margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: MyColors.darkCyan,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              fieldTitle,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontFamily: 'Pacifico',
-                              ),
-                            ),
-                            Text(
-                              fieldValue,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Pacifico',
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                    SizedBox(height: 20),
+                    buildInfoTile("Name", userData['name'] ?? 'N/A', Icons.person),
+                    buildInfoTile("Location", userData['location'] ?? 'N/A', Icons.location_on),
+                    buildInfoTile("Bio", userData['bio'] ?? 'N/A', Icons.info),
+                    buildInfoTile("Followers", "${userData['followers'] ?? 0}", Icons.people),
+                    buildInfoTile("Following", "${userData['following'] ?? 0}", Icons.people),
+                    buildInfoTile("Public Repositories", "${userData['public_repos'] ?? 0}", Icons.folder),
+                    buildInfoTile("Public Gists", "${userData['public_gists'] ?? 0}", Icons.code),
+                    buildInfoTile("Website", userData['blog'] ?? 'N/A', Icons.web),
+                  ],
+                ),
               ),
             ),
             floatingActionButton: Align(
               alignment: Alignment.topRight,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: MyColors.tealGreen,
-                  shape: StadiumBorder(),
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                ),
-                onPressed: () {
-                
-                },
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Pacifico',
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: MyColors.tealGreen,
+                    shape: const StadiumBorder(),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                  ),
+                  onPressed: () {
+                    // Add login logic here
+                  },
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Pacifico',
+                    ),
                   ),
                 ),
               ),
@@ -158,11 +90,53 @@ class Dashboard extends StatelessWidget {
       },
     );
   }
+
+  Widget buildInfoTile(String title, String value, IconData icon) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [MyColors.navyBlue, MyColors.tealGreen],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ListTile(
+        leading: Icon(
+          icon,
+          color: Colors.white,
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        subtitle: Text(
+          value,
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class MyColors {
   static const Color darkGrey = Color(0xFF0F0F0F);
   static const Color navyBlue = Color(0xFF232D3F);
   static const Color tealGreen = Color(0xFF005B41);
-  static const Color darkCyan = Color(0xFF008170);
+}
+
+void main() {
+  runApp(
+    MaterialApp(
+      home: Dashboard('your-username'), // Replace 'your-username' with the actual GitHub username.
+    ),
+  );
 }

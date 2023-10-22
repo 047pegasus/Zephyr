@@ -8,9 +8,10 @@ import 'package:gitbit/screens/tools.dart';
 class Homescreen extends StatefulWidget {
   final String username;
 
-  Homescreen(this.username, {Key? key}) : super(key: key);
+  const Homescreen(this.username, {Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomescreenState createState() => _HomescreenState();
 }
 
@@ -25,9 +26,9 @@ class _HomescreenState extends State<Homescreen> {
 
     _pages = [
       Dashboard(widget.username),
-      Leaderboard(),
+      const Leaderboard(),
        // Use the passed username
-      Tools(),
+      const Tools(),
     ];
   }
 
@@ -36,7 +37,7 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         height: 60,
-        backgroundColor: MyColors.tealGreen,
+        backgroundColor: MyColors.navyBlue,
         items: const <Widget>[
           Icon(Icons.home, size: 30),
           Icon(Icons.leaderboard, size: 30),

@@ -4,21 +4,21 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: Login(),
     debugShowCheckedModeBanner: false,
   ));
 }
 
 class Login extends StatefulWidget {
-  const Login({Key? key});
+  const Login({super.key,});
 
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   void _navigateToHomescreen(String username) {
     Navigator.pushReplacement(
@@ -47,40 +47,43 @@ class _LoginState extends State<Login> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: TextField(
-                    controller: _usernameController,
-                    decoration: const InputDecoration(
-                      hintText: "Search Github-profile",
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusColor: MyColors.navyBlue,
-                      fillColor: MyColors.darkCyan,
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      controller: _usernameController,
+                      decoration: const InputDecoration(
+                        hintText: "Search Github-profile",
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        focusColor: MyColors.navyBlue,
+                        fillColor: MyColors.darkCyan,
+                      ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: MyColors.tealGreen,
+                  backgroundColor: MyColors.tealGreen,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
                 ),
                 onPressed: () {
                   String username = _usernameController.text;
                   _navigateToHomescreen(username);
                 },
-                child: Text("Go"),
+                child: const Text("Go"),
               ),
             ],
           ),
