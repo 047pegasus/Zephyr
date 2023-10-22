@@ -15,7 +15,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems } from './listItems.jsx';
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Card, CardContent} from "@mui/material";
+import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material";
 
 function Copyright(props) {
     return (
@@ -177,31 +177,50 @@ export default function Gsoc() {
                     sx={{
                         flexGrow: 1,
                         height: '100vh',
-                        width: '100vw',
+                        width: '95vw',
                         overflow: 'auto',
                         backgroundColor: '#183D3D',
-                        padding: '20px',
+                        padding: '30px',
                         display: 'flex',
                         flexWrap: 'wrap',
                         justifyContent: 'space-around',
+                        paddingTop: "70px",
                     }}
                 >
                     {console.log(data)}
-                    {data.organizations.map((organization, index) => (
-                        <Card key={index} sx={{ maxWidth: 345, margin: 2 }}>
-                            <img src={organization.image_url} alt={organization.name} style={{ maxWidth: '100%', height: 'auto' }} />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {organization.name}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {organization.description}
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                    {data.organizations.map((organization) => (
+                        <Org key={organization.id} org={organization} />
                     ))}
                 </Box>
             </Box>
         </ThemeProvider>
+    );
+}
+
+function Org(props) {
+    return (
+        <Card style={{
+            margin: 25,
+            width: 300,
+            minHeight: 200,
+            marginTop: 45
+        }}>
+            <CardActionArea>
+                <CardMedia
+                    component="img"
+                    style={{ objectFit: 'contain', width: '100%', height: '200px' }}
+                    image={props.org.image_url}
+                    alt="Organization Image"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {props.org.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {props.org.description}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+        </Card>
     );
 }
