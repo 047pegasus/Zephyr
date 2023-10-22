@@ -120,9 +120,9 @@ export default function Gsoc() {
             <CssBaseline />
             <Box sx={{
                 display: 'flex',
-                overflow: 'hidden', // Hide the scrollbar
-                width: '100vw', // Full width of the viewport
-                height: '100vh', // Full height of the viewport
+                overflow: 'hidden',
+                width: '100vw',
+                height: '100vh',
             }}>
                 <AppBar position="absolute" open={open}>
                     <Toolbar
@@ -179,7 +179,7 @@ export default function Gsoc() {
                     component="main"
                     sx={{
                         flexGrow: 1,
-                        overflow: 'auto', // Add scrolling to the main content
+                        overflow: 'auto',
                         backgroundColor: '#183D3D',
                         padding: '30px',
                         display: 'flex',
@@ -203,8 +203,13 @@ function Org(props) {
             margin: 25,
             width: 300,
             minHeight: 200,
-            marginTop: 45
-        }}>
+            marginTop: 45,
+
+        }}
+              onClick={() => {
+                  window.location.href = props.org.url;
+              }}
+        >
             <CardActionArea>
                 <CardMedia
                     component="img"
