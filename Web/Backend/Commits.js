@@ -1,7 +1,7 @@
 // const { Octokit } = require('@octokit/core');
 //
 // const octokit = new Octokit({
-//     auth: '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',
+//     auth: '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',
 // });
 //
 // const getCommitActivity = async () => {
@@ -26,6 +26,19 @@
 // getCommitActivity();
 
 
+const mongoose = require("mongoose");
+
+const LeaderBoardSchema = new mongoose.Schema({
+    Name: String,
+    Commits: Number,
+});
+
+const Lead = mongoose.model("Lead", LeaderBoardSchema);
+
+mongoose.connect("mongodb+srv://ShashwatPS:s@cluster0.1alkv6j.mongodb.net/LeaderBoard", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 const axios = require('axios');
 const { Octokit } = require('@octokit/core');
@@ -48,7 +61,7 @@ const fetchGitHubRepos = async () => {
 
 const getCommitActivity = async (owner, repo) => {
     const octokit = new Octokit({
-        auth: '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',
+        auth: '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',
     });
 
     try {
@@ -64,18 +77,28 @@ const getCommitActivity = async (owner, repo) => {
         for (let i = 0; i < response.data.length; i++) {
             sum = sum + response.data[i].total;
         }
-        console.log(`Commit activity for ${owner}/${repo}: ${sum}`);
+        return sum;
     } catch (error) {
         console.error(`Error fetching commit activity for ${owner}/${repo}:`, error.message);
+        return 0;
     }
 };
 
 const runProcess = async () => {
+    let totalSum = 0;
     try {
         const repos = await fetchGitHubRepos();
         for (const repo of repos) {
-            await getCommitActivity(repo.owner, repo.name);
+            const sum = await getCommitActivity(repo.owner, repo.name);
+            totalSum += sum;
         }
+        const newUser = {
+            Name: repos[0].owner,
+            Commits: totalSum,
+        };
+        const newSave = new Lead(newUser);
+        await newSave.save();
+        console.log('Total commit activity for all repositories:', totalSum);
     } catch (error) {
         console.error('An error occurred:', error.message);
     }

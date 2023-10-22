@@ -104,7 +104,7 @@ export default function Gsoc() {
     };
 
     useEffect(() => {
-        axios.get("https://api.gsocorganizations.dev/organizations.json")
+        axios.get("https://api.gsocorganizations.dev/2022.json/")
             .then((res) => {
                 setData(res.data);
             })
@@ -184,26 +184,7 @@ export default function Gsoc() {
                         justifyContent: 'space-around',
                     }}
                 >
-                    {data.map(organization => (
-                        organization.years[2022].projects.map(project => (
-                            <Card key={project.title} sx={{ maxWidth: 300, margin: '15px', backgroundColor: '#fff' }}>
-                                <CardMedia
-                                    component="img"
-                                    height="140"
-                                    image={organization.image_url}
-                                    alt={organization.name}
-                                />
-                                <CardContent>
-                                    <Typography variant="h6" component="div">
-                                        {project.title}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {project.short_description}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        ))
-                    ))}
+                    <h1>Hello</h1>
                 </Box>
             </Box>
         </ThemeProvider>
