@@ -41,7 +41,9 @@ dependencies:
   github_sign_in: ^0.0.5-dev.4
   google_fonts: ^4.0.4
   http: ^0.13.6
+  shared_preferences: ^2.2.2
   shimmer: ^3.0.0
+  webview_flutter: ^3.0.4
 
 dev_dependencies:
 
