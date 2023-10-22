@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gitbit/screens/login.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:shimmer/shimmer.dart';
 
@@ -35,8 +36,7 @@ class _WelcomeState extends State<Welcome> {
               highlightColor:
                 Color(0xff008170), // Change the highlight color as needed
               child: Text(
-                "GITBIT>>",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-                
+                "GITBIT>>",style:GoogleFonts.montserrat(fontSize:25,fontWeight:FontWeight.bold)
               ),
             ),
           ],

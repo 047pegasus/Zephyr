@@ -30,97 +30,127 @@ class Dashboard extends StatelessWidget {
           Map<String, dynamic> userData = snapshot.data as Map<String, dynamic>;
 
           return Scaffold(
+            backgroundColor: MyColors.darkGrey,
+            appBar: AppBar(
+              title: Text("GitHub Profile"),
+              backgroundColor: MyColors.navyBlue,
+            ),
             body: Center(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CircleAvatar(
                     backgroundImage: NetworkImage(userData['avatar_url']),
-                    radius: 50,
+                    radius: 60,
                   ),
                   SizedBox(height: 20),
                   Text(
                     "Name: ${userData['name'] ?? 'N/A'}",
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: MyColors.navyBlue, // Updated text color
+                      color: MyColors.darkCyan,
+                      fontFamily: 'Pacifico',
                     ),
                   ),
-                  Expanded(
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                      ),
-                      itemCount: 7, // Adjust the number of data fields as needed
-                      itemBuilder: (context, index) {
-                        String fieldTitle;
-                        String fieldValue;
-
-                        switch (index) {
-                          case 0:
-                            fieldTitle = 'Location';
-                            fieldValue = userData['location'] ?? 'N/A';
-                            break;
-                          case 1:
-                            fieldTitle = 'Bio';
-                            fieldValue = userData['bio'] ?? 'N/A';
-                            break;
-                          case 2:
-                            fieldTitle = 'Followers';
-                            fieldValue = '${userData['followers'] ?? 0}';
-                            break;
-                          case 3:
-                            fieldTitle = 'Following';
-                            fieldValue = '${userData['following'] ?? 0}';
-                            break;
-                          case 4:
-                            fieldTitle = 'Public Repositories';
-                            fieldValue = '${userData['public_repos'] ?? 0}';
-                            break;
-                          case 5:
-                            fieldTitle = 'Public Gists';
-                            fieldValue = '${userData['public_gists'] ?? 0}';
-                            break;
-                          case 6:
-                            fieldTitle = 'Website';
-                            fieldValue = userData['blog'] ?? 'N/A';
-                            break;
-                          // Add more data fields here
-                          default:
-                            fieldTitle = '';
-                            fieldValue = '';
-                            break;
-                        }
-
-                        return Container(
-                          margin: EdgeInsets.all(10),
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: MyColors.tealGreen, // Updated container color
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                fieldTitle,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                fieldValue,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                  SizedBox(height: 20),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
                     ),
+                    itemCount: 7,
+                    itemBuilder: (context, index) {
+                      String fieldTitle;
+                      String fieldValue;
+
+                      switch (index) {
+                        case 0:
+                          fieldTitle = 'Location';
+                          fieldValue = userData['location'] ?? 'N/A';
+                          break;
+                        case 1:
+                          fieldTitle = 'Bio';
+                          fieldValue = userData['bio'] ?? 'N/A';
+                          break;
+                        case 2:
+                          fieldTitle = 'Followers';
+                          fieldValue = '${userData['followers'] ?? 0}';
+                          break;
+                        case 3:
+                          fieldTitle = 'Following';
+                          fieldValue = '${userData['following'] ?? 0}';
+                          break;
+                        case 4:
+                          fieldTitle = 'Public Repositories';
+                          fieldValue = '${userData['public_repos'] ?? 0}';
+                          break;
+                        case 5:
+                          fieldTitle = 'Public Gists';
+                          fieldValue = '${userData['public_gists'] ?? 0}';
+                          break;
+                        case 6:
+                          fieldTitle = 'Website';
+                          fieldValue = userData['blog'] ?? 'N/A';
+                          break;
+                        default:
+                          fieldTitle = '';
+                          fieldValue = '';
+                          break;
+                      }
+
+                      return Container(
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: MyColors.darkCyan,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              fieldTitle,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontFamily: 'Pacifico',
+                              ),
+                            ),
+                            Text(
+                              fieldValue,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Pacifico',
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ],
+              ),
+            ),
+            floatingActionButton: Align(
+              alignment: Alignment.topRight,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: MyColors.tealGreen,
+                  shape: StadiumBorder(),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                ),
+                onPressed: () {
+                
+                },
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Pacifico',
+                  ),
+                ),
               ),
             ),
           );

@@ -1,14 +1,14 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:gitbit/screens/colors.dart';
 
-
-
+import 'package:gitbit/screens/dashboard.dart';
 import 'package:gitbit/screens/leaderboard.dart';
 import 'package:gitbit/screens/tools.dart';
 
 class Homescreen extends StatefulWidget {
-  const Homescreen({Key? key});
+  final String username;
+
+  Homescreen(this.username, {Key? key}) : super(key: key);
 
   @override
   _HomescreenState createState() => _HomescreenState();
@@ -16,19 +16,27 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   int _selectedIndex = 0;
-  
-  final List<Widget> _pages = [
 
-    Leaderboard(),
-    Tools(),
-  ];
+  late List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _pages = [
+      Dashboard(widget.username),
+      Leaderboard(),
+       // Use the passed username
+      Tools(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         height: 60,
-        backgroundColor:MyColors.tealGreen, // Set the background color here
+        backgroundColor: MyColors.tealGreen,
         items: const <Widget>[
           Icon(Icons.home, size: 30),
           Icon(Icons.leaderboard, size: 30),
@@ -40,8 +48,13 @@ class _HomescreenState extends State<Homescreen> {
           });
         },
       ),
-  
       body: _pages[_selectedIndex],
     );
   }
+}
+class MyColors {
+  static const Color darkGrey = Color(0xFF0F0F0F);
+  static const Color navyBlue = Color(0xFF232D3F);
+  static const Color tealGreen = Color(0xFF005B41);
+  static const Color darkCyan = Color(0xFF008170);
 }

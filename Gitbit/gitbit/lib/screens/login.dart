@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gitbit/screens/dashboard.dart';
+import 'package:gitbit/screens/navigation.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class MyColors {
-  static const Color darkGrey = Color(0xFF0F0F0F);
-  static const Color navyBlue = Color(0xFF232D3F);
-  static const Color tealGreen = Color(0xFF005B41);
-  static const Color darkCyan = Color(0xFF008170);
-}
 
 void main() {
   runApp(MaterialApp(
@@ -16,7 +11,7 @@ void main() {
 }
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  const Login({Key? key});
 
   @override
   State<Login> createState() => _LoginState();
@@ -25,11 +20,11 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController _usernameController = TextEditingController();
 
-  void _navigateToDashboard(String username) {
+  void _navigateToHomescreen(String username) {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => Dashboard(username),
+        builder: (context) => Homescreen(username),
       ),
     );
   }
@@ -45,10 +40,10 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'SEARCH FOR GITBIT',
-                style: TextStyle(
-                  color: MyColors.navyBlue,
-                  fontSize: 24,
+                'WELCOME',
+                style: GoogleFonts.montserrat(
+                  color: MyColors.tealGreen,
+                  fontSize: 34,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -56,13 +51,19 @@ class _LoginState extends State<Login> {
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(50),
                 ),
-                child: TextField(
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    labelText: "Enter GitHub Username",
-                    border: InputBorder.none,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: TextField(
+                    controller: _usernameController,
+                    decoration: const InputDecoration(
+                      hintText: "Search Github-profile",
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusColor: MyColors.navyBlue,
+                      fillColor: MyColors.darkCyan,
+                    ),
                   ),
                 ),
               ),
@@ -77,7 +78,7 @@ class _LoginState extends State<Login> {
                 ),
                 onPressed: () {
                   String username = _usernameController.text;
-                  _navigateToDashboard(username);
+                  _navigateToHomescreen(username);
                 },
                 child: Text("Go"),
               ),
@@ -87,4 +88,11 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+}
+
+class MyColors {
+  static const Color darkGrey = Color(0xFF0F0F0F);
+  static const Color navyBlue = Color(0xFF232D3F);
+  static const Color tealGreen = Color(0xFF005B41);
+  static const Color darkCyan = Color(0xFF008170);
 }
