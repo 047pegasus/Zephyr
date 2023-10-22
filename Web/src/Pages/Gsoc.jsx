@@ -104,7 +104,7 @@ export default function Gsoc() {
     };
 
     useEffect(() => {
-        axios.get("https://api.gsocorganizations.dev/2022.json/")
+        axios.get("http://localhost:5000/data")
             .then((res) => {
                 setData(res.data);
             })
@@ -178,13 +178,13 @@ export default function Gsoc() {
                         width: '100vw',
                         overflow: 'auto',
                         backgroundColor: '#183D3D',
-                        padding: '20px', // Adjust padding as needed
+                        padding: '20px',
                         display: 'flex',
                         flexWrap: 'wrap',
                         justifyContent: 'space-around',
                     }}
                 >
-                    <h1>Hello</h1>
+                    {console.log(data)}
                 </Box>
             </Box>
         </ThemeProvider>
