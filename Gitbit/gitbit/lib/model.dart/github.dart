@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     flutterWebviewPlugin.launch(
       authUrl,
-      fullScreen: false,
+    
       clearCookies: true,
     );
 
