@@ -110,7 +110,8 @@ export default function Gsoc() {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:5000/data")
+        let year = selectedYear;
+        axios.get("http://localhost:5000/data",{'headers': {'year': year}})
             .then((res) => {
                 const orgData = res.data;
                 setData(orgData);
@@ -118,7 +119,7 @@ export default function Gsoc() {
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, []);
+    }, [selectedYear]);
 
     return (
         <ThemeProvider theme={defaultTheme}>
