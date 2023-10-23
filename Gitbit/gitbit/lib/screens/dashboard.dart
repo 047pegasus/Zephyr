@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gitbit/main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -71,7 +72,7 @@ class Dashboard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                   ),
                   onPressed: () {
-                    // Add login logic here
+                   Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=>MyApp()))
                   },
                   child: const Text(
                     "Login",

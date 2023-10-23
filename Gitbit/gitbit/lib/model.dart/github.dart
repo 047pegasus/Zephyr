@@ -12,10 +12,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(Mypp());
 }
 
-class MyApp extends StatelessWidget {
+class Mypp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
