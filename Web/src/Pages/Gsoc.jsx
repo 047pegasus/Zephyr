@@ -212,9 +212,19 @@ export default function Gsoc() {
                                         backgroundColor: '#183D3D',
                                     }}
                                 >
-                  {selected}
-                </span>
+            {selected}
+        </span>
                             )}
+                            MenuProps={{
+                                PaperProps: {
+                                    style: {
+                                        marginTop: 0,
+                                        borderRadius: 8,
+                                        backgroundColor: '#183D3D',
+                                        color: 'white',
+                                    },
+                                },
+                            }}
                         >
                             <MenuItem
                                 value=""
@@ -225,6 +235,7 @@ export default function Gsoc() {
                                     margin: 0,
                                     '&.Mui-selected, &:hover': {
                                         backgroundColor: '#183D3D',
+                                        border: 'none',
                                     },
                                 }}
                             >
@@ -239,9 +250,11 @@ export default function Gsoc() {
                                         backgroundColor: '#183D3D',
                                         '&.Mui-selected': {
                                             backgroundColor: '#1E4D4D',
+                                            border: 'none',
                                         },
                                         '&:hover': {
                                             backgroundColor: '#183D3D',
+                                            border: 'none',
                                         },
                                     }}
                                 >
