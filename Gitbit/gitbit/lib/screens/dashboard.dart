@@ -63,7 +63,7 @@ class Dashboard extends StatelessWidget {
             floatingActionButton: Align(
               alignment: Alignment.topRight,
               child: Padding(
-                padding: const EdgeInsets.all(40.0),
+                padding: const EdgeInsets.all(34.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: MyColors.tealGreen,
