@@ -12,12 +12,22 @@ import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import SearchIcon from '@mui/icons-material/Search';
+import InputBase from '@mui/material/InputBase';
 import { mainListItems } from './listItems.jsx';
-import {useEffect, useState} from "react";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Oval as Loader } from 'react-loader-spinner';
-import {Card, CardActionArea, CardContent, CardMedia, MenuItem, Select} from "@mui/material";
-import '../CSS/Gsoc.css'
+import {
+    Card,
+    CardActionArea,
+    CardContent,
+    CardMedia,
+    MenuItem,
+    Select,
+} from '@mui/material';
+import '../CSS/Gsoc.css';
+
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -80,9 +90,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
             boxShadow: '0px 0px 10px 0px rgba(255, 255, 255, 0.5)',
             transition: 'box-shadow 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out',
         },
-    }),
+    })
 );
-
 
 const defaultTheme = createTheme({
     palette: {
@@ -102,6 +111,8 @@ export default function Gsoc() {
     const [open, setOpen] = React.useState(true);
     const [data, setData] = useState([]);
     const [selectedYear, setSelectedYear] = useState(2022);
+    const [searchQuery, setSearchQuery] = useState('');
+
     const toggleDrawer = () => {
         setOpen(!open);
     };
@@ -110,27 +121,47 @@ export default function Gsoc() {
         setSelectedYear(event.target.value);
     };
 
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
     useEffect(() => {
         let year = selectedYear;
-        axios.get("http://localhost:5000/data",{'headers': {'year': year}})
-            .then((res) => {
-                const orgData = res.data;
-                setData(orgData);
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
+        const fetchData = async () => {
+            try {
+                setData(null);
+                setTimeout(async () => {
+                    const response = await axios.get('http://localhost:5000/data', {
+                        headers: { year: year },
+                    });
+                    const orgData = response.data;
+                    setData(orgData);
+                }, 1000);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData();
     }, [selectedYear]);
+
+    const filteredData =
+        data &&
+        data.organizations &&
+        data.organizations.filter((organization) =>
+            organization.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
 
     return (
         <ThemeProvider theme={defaultTheme}>
             <CssBaseline />
-            <Box sx={{
-                display: 'flex',
-                overflow: 'hidden',
-                width: '100vw',
-                height: '100vh',
-            }}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    overflow: 'hidden',
+                    width: '100vw',
+                    height: '100vh',
+                }}
+            >
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
@@ -181,36 +212,58 @@ export default function Gsoc() {
                                         backgroundColor: '#183D3D',
                                     }}
                                 >
-            {selected}
-        </span>
+                  {selected}
+                </span>
                             )}
                         >
-                            <MenuItem value="" sx={{
-                                color: 'White',
-                                backgroundColor: '#183D3D',
-                                padding: 0,
-                                margin: 0,
-                                '&.Mui-selected, &:hover': {
+                            <MenuItem
+                                value=""
+                                sx={{
+                                    color: 'White',
                                     backgroundColor: '#183D3D',
-                                },
-                            }}>
+                                    padding: 0,
+                                    margin: 0,
+                                    '&.Mui-selected, &:hover': {
+                                        backgroundColor: '#183D3D',
+                                    },
+                                }}
+                            >
                                 Select Year
                             </MenuItem>
                             {[2016, 2017, 2018, 2019, 2020, 2021, 2022].map((year) => (
-                                <MenuItem key={year} value={year} sx={{
-                                    color: 'white',
-                                    backgroundColor: '#183D3D',
-                                    '&.Mui-selected': {
-                                        backgroundColor: '#1E4D4D',
-                                    },
-                                    '&:hover': {
+                                <MenuItem
+                                    key={year}
+                                    value={year}
+                                    sx={{
+                                        color: 'white',
                                         backgroundColor: '#183D3D',
-                                    },
-                                }}>
+                                        '&.Mui-selected': {
+                                            backgroundColor: '#1E4D4D',
+                                        },
+                                        '&:hover': {
+                                            backgroundColor: '#183D3D',
+                                        },
+                                    }}
+                                >
                                     {year}
                                 </MenuItem>
                             ))}
                         </Select>
+                        <div
+                            className="search-container"
+                            sx={{ position: 'relative', marginLeft: 'auto' }}
+                        >
+                            <SearchIcon sx={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', marginLeft: '8px', color: '#93B1A6' }} />
+                            <InputBase
+                                placeholder="Search..."
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                                sx={{
+                                    color: 'white',
+                                    paddingLeft: '32px', // To account for the icon
+                                }}
+                            />
+                        </div>
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>
@@ -227,10 +280,7 @@ export default function Gsoc() {
                         </IconButton>
                     </Toolbar>
                     <Divider />
-                    <List component="nav">
-                        {mainListItems}
-                        <Divider sx={{ my: 1 }} />
-                    </List>
+                    <List component="nav">{mainListItems}</List>
                 </Drawer>
                 <Box
                     component="main"
@@ -246,16 +296,12 @@ export default function Gsoc() {
                         minHeight: '100vh',
                     }}
                 >
-                    {data && data.organizations && data.organizations.length > 0 ? (
-                        data.organizations.map((organization) => (
+                    {filteredData && filteredData.length > 0 ? (
+                        filteredData.map((organization) => (
                             <Org key={organization.id} org={organization} />
                         ))
                     ) : (
-                        <Loader
-                            color="#183D3D"
-                            height={50}
-                            width={50}
-                        />
+                        <Loader color="#183D3D" height={50} width={50} />
                     )}
                 </Box>
             </Box>
@@ -282,15 +328,26 @@ function Org(props) {
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    style={{ objectFit: 'contain', width: '100%', height: '200px', borderBottom: "1px solid white" }}
+                    style={{
+                        objectFit: 'contain',
+                        width: '100%',
+                        height: '200px',
+                        borderBottom: '1px solid white',
+                    }}
                     image={props.org.image_url}
                     alt="Organization Image"
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color={"white"} className={"Title"}>
+                    <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        color={'white'}
+                        className={'Title'}
+                    >
                         {props.org.name}
                     </Typography>
-                    <Typography variant="body2" color="white" className={"Description"}>
+                    <Typography variant="body2" color="white" className={'Description'}>
                         {props.org.description}
                     </Typography>
                 </CardContent>
