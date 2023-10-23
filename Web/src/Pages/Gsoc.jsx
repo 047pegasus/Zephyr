@@ -15,6 +15,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems } from './listItems.jsx';
 import {useEffect, useState} from "react";
 import axios from "axios";
+import { Oval as Loader } from 'react-loader-spinner';
 import {Card, CardActionArea, CardContent, CardMedia, MenuItem, Select} from "@mui/material";
 
 function Copyright(props) {
@@ -236,12 +237,13 @@ export default function Gsoc() {
                     sx={{
                         flexGrow: 1,
                         overflow: 'auto',
-                        background: 'linear-gradient(to right, #7FB3B3, #183D3D)', // Adjusted gradient colors
+                        background: 'linear-gradient(to right, #7FB3B3, #183D3D)',
                         padding: '30px',
                         display: 'flex',
                         flexWrap: 'wrap',
-                        justifyContent: 'space-around',
-                        paddingTop: '70px',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        minHeight: '100vh',
                     }}
                 >
                     {data && data.organizations && data.organizations.length > 0 ? (
@@ -249,7 +251,11 @@ export default function Gsoc() {
                             <Org key={organization.id} org={organization} />
                         ))
                     ) : (
-                        <p>Loading ......</p>
+                        <Loader
+                            color="#183D3D"
+                            height={50}
+                            width={50}
+                        />
                     )}
                 </Box>
             </Box>
