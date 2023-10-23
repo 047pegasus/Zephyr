@@ -26,42 +26,80 @@
 // getCommitActivity();
 
 
-const mongoose = require("mongoose");
+const express = require('express');
+const mongoose = require('mongoose');
+const { Octokit } = require('@octokit/core');
+const axios = require('axios');
+
+const app = express();
+const port = 3000;
+
+app.use(express.json());
 
 const LeaderBoardSchema = new mongoose.Schema({
     Name: String,
     Commits: Number,
 });
 
-const Lead = mongoose.model("Lead", LeaderBoardSchema);
+const Lead = mongoose.model('Lead', LeaderBoardSchema);
 
-mongoose.connect("mongodb+srv://ShashwatPS:s@cluster0.1alkv6j.mongodb.net/LeaderBoard", {
+mongoose.connect('mongodb+srv://ShashwatPS:s@cluster0.1alkv6j.mongodb.net/LeaderBoard', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
 
-const axios = require('axios');
-const { Octokit } = require('@octokit/core');
-const fetchGitHubRepos = async () => {
+app.get('/api/github-commit-activity', async (req, res) => {
+    const { authtoken, githubusername } = req.headers;
+    console.log('Headers:', req.headers);
+    if (!authtoken || !githubusername) {
+        return res.status(400).json({ error: 'Authentication token and GitHub username are required in headers.' });
+    }
+
     try {
-        const response = await axios.get('https://api.github.com/users/ShashwatPS/repos');
-        const repoInfoArray = response.data.map(repo => ({
+        const repos = await fetchGitHubRepos(authtoken, githubusername);
+        let totalSum = 0;
+
+        for (const repo of repos) {
+            const sum = await getCommitActivity(authtoken, repo.owner, repo.name);
+            totalSum += sum;
+        }
+
+        const newUser = {
+            Name: githubusername,
+            Commits: totalSum,
+        };
+
+        const newSave = new Lead(newUser);
+        await newSave.save();
+
+        res.json({ totalCommits: totalSum });
+    } catch (error) {
+        console.error('An error occurred:', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+const fetchGitHubRepos = async (authtoken, githubusername) => {
+    try {
+        const response = await axios.get(`https://api.github.com/users/${githubusername}/repos`, {
+            headers: {
+                Authorization: `Bearer ${authtoken}`,
+            },
+        });
+
+        return response.data.map(repo => ({
             name: repo.name,
             owner: repo.owner.login,
         }));
-        console.log(repoInfoArray);
-
-        return repoInfoArray;
     } catch (error) {
         console.error('Error fetching GitHub repositories:', error.message);
         throw error;
     }
 };
 
-
-const getCommitActivity = async (owner, repo) => {
+const getCommitActivity = async (authtoken, owner, repo) => {
     const octokit = new Octokit({
-        auth: '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',
+        auth: authtoken,
     });
 
     try {
@@ -75,7 +113,7 @@ const getCommitActivity = async (owner, repo) => {
 
         let sum = 0;
         for (let i = 0; i < response.data.length; i++) {
-            sum = sum + response.data[i].total;
+            sum += response.data[i].total;
         }
         return sum;
     } catch (error) {
@@ -84,25 +122,6 @@ const getCommitActivity = async (owner, repo) => {
     }
 };
 
-const runProcess = async () => {
-    let totalSum = 0;
-    try {
-        const repos = await fetchGitHubRepos();
-        for (const repo of repos) {
-            const sum = await getCommitActivity(repo.owner, repo.name);
-            totalSum += sum;
-        }
-        const newUser = {
-            Name: repos[0].owner,
-            Commits: totalSum,
-        };
-        const newSave = new Lead(newUser);
-        await newSave.save();
-        console.log('Total commit activity for all repositories:', totalSum);
-    } catch (error) {
-        console.error('An error occurred:', error.message);
-    }
-};
-
-
-runProcess();
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
