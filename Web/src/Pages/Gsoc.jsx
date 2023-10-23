@@ -17,7 +17,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import { Oval as Loader } from 'react-loader-spinner';
 import {Card, CardActionArea, CardContent, CardMedia, MenuItem, Select} from "@mui/material";
-
+import '../CSS/Gsoc.css'
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -282,15 +282,15 @@ function Org(props) {
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    style={{ objectFit: 'contain', width: '100%', height: '200px' }}
+                    style={{ objectFit: 'contain', width: '100%', height: '200px', borderBottom: "1px solid white" }}
                     image={props.org.image_url}
                     alt="Organization Image"
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color={"white"}>
+                    <Typography gutterBottom variant="h5" component="div" color={"white"} className={"Title"}>
                         {props.org.name}
                     </Typography>
-                    <Typography variant="body2" color="white">
+                    <Typography variant="body2" color="white" className={"Description"}>
                         {props.org.description}
                     </Typography>
                 </CardContent>
