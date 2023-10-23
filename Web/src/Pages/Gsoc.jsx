@@ -236,7 +236,7 @@ export default function Gsoc() {
                     sx={{
                         flexGrow: 1,
                         overflow: 'auto',
-                        backgroundColor: '#183D3D',
+                        background: 'linear-gradient(to right, #7FB3B3, #183D3D)', // Adjusted gradient colors
                         padding: '30px',
                         display: 'flex',
                         flexWrap: 'wrap',
