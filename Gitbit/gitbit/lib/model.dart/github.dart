@@ -1,9 +1,11 @@
 
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,9 +32,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final flutterWebviewPlugin = FlutterWebviewPlugin();
-  final String clientId = 'YOUR_GITHUB_CLIENT_ID';
-  final String clientSecret = 'YOUR_GITHUB_CLIENT_SECRET';
-  final String redirectUrl = 'YOUR_REDIRECT_URL';
+  final String clientId = 'f45fb04da2a051747526';
+  final String clientSecret = '6fb82d9fff9d1b610ce0a68b0dd4fe5211e95ec0';
+  final String redirectUrl = 'http://localhost:8080';
 
   Future<User?> signInWithGitHub(BuildContext context) async {
     final authUrl =
@@ -78,11 +80,22 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     return null;
   }
+Future<void> registerUserOnFirebase(User user) async {
+  final userCollection = FirebaseFirestore.instance.collection('users');
 
-  Future<void> registerUserOnFirebase(User user) async {
-    // You can register the user on Firebase here.
-    // For example, you can use Firebase Realtime Database or Firestore.
+  // Check if the user already exists in the Firestore database.
+  final userDoc = await userCollection.doc(user.uid).get();
+
+  if (!userDoc.exists) {
+    // If the user does not exist, create a new user document in Firestore.
+    await userCollection.doc(user.uid).set({
+      'uid': user.uid,
+      'displayName': user.displayName,
+      'email': user.email,
+      // Add other user data you want to store.
+    });
   }
+}
 
   Future<void> saveLoginStatus(bool isLoggedIn) async {
     final prefs = await SharedPreferences.getInstance();
