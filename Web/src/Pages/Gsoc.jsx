@@ -325,7 +325,7 @@ export default function Gsoc() {
 
 function Org(props) {
     const renderTechnologies = () => {
-        return props.org.technologies.slice(0, 2).map((tech, index) => (
+        return props.org.technologies.map((tech, index) => (
             <div key={index} style={{ display: 'inline-flex', alignItems: 'center', marginRight: '16px' }}>
                 <div
                     style={{

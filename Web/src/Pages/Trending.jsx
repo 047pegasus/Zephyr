@@ -111,7 +111,6 @@ const defaultTheme = createTheme({
 export default function Trending() {
     const [open, setOpen] = React.useState(true);
     const [data, setData] = useState([]);
-    const [selectedYear, setSelectedYear] = useState(2022);
     const [searchQuery, setSearchQuery] = useState('');
 
     const toggleDrawer = () => {
@@ -176,79 +175,6 @@ export default function Trending() {
                         >
                             TRENDING REPOS
                         </Typography>
-                        <Select
-                            value={selectedYear}
-                            onChange={handleYearChange}
-                            displayEmpty
-                            inputProps={{ 'aria-label': 'Select year' }}
-                            sx={{
-                                color: '#93B1A6',
-                                '&:before': {
-                                    borderBottomColor: 'black',
-                                },
-                                '&:after': {
-                                    borderBottomColor: 'black',
-                                },
-                                padding: 0,
-                                margin: 0,
-                            }}
-                            renderValue={(selected) => (
-                                <span
-                                    sx={{
-                                        color: '#183D3D',
-                                        backgroundColor: '#183D3D',
-                                    }}
-                                >
-            {selected}
-        </span>
-                            )}
-                            MenuProps={{
-                                PaperProps: {
-                                    style: {
-                                        marginTop: 0,
-                                        borderRadius: 8,
-                                        backgroundColor: '#183D3D',
-                                        color: 'white',
-                                    },
-                                },
-                            }}
-                        >
-                            <MenuItem
-                                value=""
-                                sx={{
-                                    color: 'White',
-                                    backgroundColor: '#183D3D',
-                                    padding: 0,
-                                    margin: 0,
-                                    '&.Mui-selected, &:hover': {
-                                        backgroundColor: '#183D3D',
-                                        border: 'none',
-                                    },
-                                }}
-                            >
-                                Select Year
-                            </MenuItem>
-                            {[2016, 2017, 2018, 2019, 2020, 2021, 2022].map((year) => (
-                                <MenuItem
-                                    key={year}
-                                    value={year}
-                                    sx={{
-                                        color: 'white',
-                                        backgroundColor: '#183D3D',
-                                        '&.Mui-selected': {
-                                            backgroundColor: '#1E4D4D',
-                                            border: 'none',
-                                        },
-                                        '&:hover': {
-                                            backgroundColor: '#183D3D',
-                                            border: 'none',
-                                        },
-                                    }}
-                                >
-                                    {year}
-                                </MenuItem>
-                            ))}
-                        </Select>
                         <div
                             className="search-container"
                             sx={{ position: 'relative', marginLeft: 'auto' }}
