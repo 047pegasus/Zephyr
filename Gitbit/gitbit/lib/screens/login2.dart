@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:gitbit/screens/signin.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:lottie/lottie.dart';
 
-class SignInPage extends StatelessWidget {
+void main() {
+  runApp(MaterialApp(
+    home: SignInPage(),
+  ));
+}
+
+class SignInPage extends StatefulWidget {
+  @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final List<String> welcomeTexts = [
+    'Welcome to GitBit',
+    'Discover Amazing Features',
+    'Join Our Community',
+  ];
+
+  int _currentSlideIndex = 0; // Track the current slide index
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,8 +31,9 @@ class SignInPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'WELCOME TO GITBIT',
-              style: GoogleFonts.montserrat(
+              welcomeTexts[
+                  _currentSlideIndex], // Use the current slide index to get the welcome text
+              style: TextStyle(
                 fontSize: 20,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -22,12 +41,27 @@ class SignInPage extends StatelessWidget {
             ),
             SizedBox(
               height: 300,
-              child:   Lottie.asset('assets/xwirnzarW3.json'),
+              child: CarouselSlider(
+                items: [
+                  _buildSlide('assets/xwirnzarW3.json', 'Text 1'),
+                  _buildSlide('assets/E5Tgenj6S5.json', 'Text 2'),
+                  _buildSlide('assets/animation3.json', 'Text 3'),
+                ],
+                options: CarouselOptions(
+                  height: 300,
+                  enlargeCenterPage: true,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentSlideIndex = index;
+                    });
+                  },
+                ),
+              ),
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => ButtonPage()));
+                // Handle the Sign-In action
               },
               child: Text(
                 'Sign In',
@@ -45,34 +79,9 @@ class SignInPage extends StatelessWidget {
       ),
     );
   }
-}
 
-class SlideItem extends StatelessWidget {
-  final IconData icon;
-  final String text;
-
-  SlideItem({required this.icon, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          icon,
-          size: 60,
-          color: Colors.white,
-        ),
-        SizedBox(height: 20.0),
-        Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-          ),
-        ),
-      ],
-    );
+  Widget _buildSlide(String animationAsset, String text) {
+    return Lottie.asset(animationAsset);
   }
 }
 
