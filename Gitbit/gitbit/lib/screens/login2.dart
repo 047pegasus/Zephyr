@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gitbit/screens/signin.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,24 +21,23 @@ class SignInPage extends StatelessWidget {
               ),
             ),
             Container(
-              height: 200, 
+              height: 200,
               child: AutoSlider(),
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
-              
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>ButtonPage()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) =>ButtonPage()));
               },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(MyColors.tealGreen),
-              ),
               child: Text(
                 'Sign In',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.white,
                 ),
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(MyColors.tealGreen),
               ),
             ),
           ],
@@ -77,20 +77,19 @@ class _AutoSliderState extends State<AutoSlider> {
     _autoSlide();
   }
 
-  void _autoSlide() {
-    Future.delayed( Duration(seconds: 2)).then((value) {
-      if (_currentPage < slides.length - 1) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
-      _controller.animateToPage(
-        _currentPage,
-        duration: Duration(milliseconds: 200),
-        curve: Curves.easeInOut,
-      );
-      _autoSlide();
-    });
+  Future<void> _autoSlide() async {
+    await Future.delayed(const Duration(seconds: 5));
+    if (_currentPage < slides.length - 1) {
+      _currentPage++;
+    } else {
+      _currentPage = 0;
+    }
+    _controller.animateToPage(
+      _currentPage,
+      duration: Duration(milliseconds: 200),
+      curve: Curves.easeInOut,
+    );
+    _autoSlide();
   }
 
   @override
@@ -139,6 +138,7 @@ class SlideItem extends StatelessWidget {
     );
   }
 }
+
 class MyColors {
   static const Color darkGrey = Color(0xFF0F0F0F);
   static const Color navyBlue = Color(0xFF232D3F);
