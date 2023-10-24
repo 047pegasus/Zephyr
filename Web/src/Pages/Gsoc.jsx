@@ -273,7 +273,7 @@ export default function Gsoc() {
                                 onChange={handleSearchChange}
                                 sx={{
                                     color: 'white',
-                                    paddingLeft: '32px', // To account for the icon
+                                    paddingLeft: '32px',
                                 }}
                             />
                         </div>
@@ -307,6 +307,7 @@ export default function Gsoc() {
                         justifyContent: 'center',
                         alignItems: 'center',
                         minHeight: '100vh',
+                        paddingTop: '50px',
                     }}
                 >
                     {filteredData && filteredData.length > 0 ? (
@@ -323,6 +324,68 @@ export default function Gsoc() {
 }
 
 function Org(props) {
+    const renderTechnologies = () => {
+        return props.org.technologies.slice(0, 2).map((tech, index) => (
+            <div key={index} style={{ display: 'inline-flex', alignItems: 'center', marginRight: '16px' }}>
+                <div
+                    style={{
+                        width: '10px',
+                        height: '10px',
+                        borderRadius: '50%',
+                        backgroundColor: getTechnologyColor(tech),
+                        marginRight: '8px',
+                    }}
+                />
+                <Typography variant="body2" color="#c9d1d9">
+                    {tech}
+                </Typography>
+            </div>
+        ));
+    };
+
+    const getTechnologyColor = (technology) => {
+        switch (technology.toLowerCase()) {
+            case 'javascript':
+                return '#f1e05a';
+            case 'typescript':
+                return '#3178c6';
+            case 'c':
+                return '#555555';
+            case 'c++':
+                return '#f34b7d';
+            case 'kotlin':
+                return '#7f97d6';
+            case 'dart':
+                return '#00b4ab';
+            case 'python':
+                return '#3572A5';
+            case 'jupyter':
+                return '#f37626';
+            case 'ruby':
+                return '#701516';
+            case 'ruby on rails':
+                return '#cc0000';
+            case 'kubernetes':
+                return '#326ce5';
+            case 'opengl':
+                return '#5586a2';
+            case 'rust':
+                return '#dea584';
+            case 'golang':
+                return '#00acd7';
+            case 'react':
+                return '#61dafb';
+            case 'nextjs':
+                return '#000000';
+            case 'qt':
+                return '#41cd52';
+            // Add more cases as needed
+            default:
+                return '#2ea44f'; // Default color
+        }
+    };
+
+
     return (
         <Card
             style={{
@@ -359,9 +422,10 @@ function Org(props) {
                     >
                         {props.org.name}
                     </Typography>
-                    <Typography variant="body2" color="#c9d1d9">
+                    <Typography variant="body2" color="#c9d1d9" style={{ marginBottom: '8px' }}>
                         {props.org.description}
                     </Typography>
+                    {renderTechnologies()}
                 </CardContent>
             </CardActionArea>
         </Card>
