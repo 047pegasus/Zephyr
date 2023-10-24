@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gitbit/screens/colors.dart';
 import 'package:gitbit/screens/signin.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -30,15 +29,15 @@ class SignInPage extends StatelessWidget {
               
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>ButtonPage()));
               },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(MyColors.tealGreen),
+              ),
               child: Text(
                 'Sign In',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.white,
                 ),
-              ),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(MyColors.tealGreen),
               ),
             ),
           ],
@@ -79,7 +78,7 @@ class _AutoSliderState extends State<AutoSlider> {
   }
 
   void _autoSlide() {
-    Future.delayed(Duration(seconds: 3)).then((value) {
+    Future.delayed( Duration(seconds: 2)).then((value) {
       if (_currentPage < slides.length - 1) {
         _currentPage++;
       } else {
@@ -139,4 +138,10 @@ class SlideItem extends StatelessWidget {
       ],
     );
   }
+}
+class MyColors {
+  static const Color darkGrey = Color(0xFF0F0F0F);
+  static const Color navyBlue = Color(0xFF232D3F);
+  static const Color tealGreen = Color(0xFF005B41);
+  static const Color darkCyan = Color(0xFF008170);
 }

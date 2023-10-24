@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gitbit/screens/navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 void main() {
   runApp(const MaterialApp(
     home: Login(),
@@ -11,7 +10,9 @@ void main() {
 }
 
 class Login extends StatefulWidget {
-  const Login({super.key,});
+  const Login({
+    super.key,
+  });
 
   @override
   State<Login> createState() => _LoginState();

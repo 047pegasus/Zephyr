@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:gitbit/screens/login.dart';
+
 import 'package:gitbit/screens/login2.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,7 +17,7 @@ class _WelcomeState extends State<Welcome> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-     {
+      {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => SignInPage()),
         );
@@ -29,21 +28,26 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-           
-            Shimmer.fromColors(
-              baseColor:Colors.white, // Change the base color as needed
-              highlightColor:
-               MyColors.tealGreen, // Change the highlight color as needed
-              child: Text(
-                "GITBIT>>",style:GoogleFonts.montserrat(fontSize:35,fontWeight:FontWeight.bold)
-              ),
-            ),
-          ],
-        ),
-      
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Shimmer.fromColors(
+            baseColor: Colors.white, // Change the base color as needed
+            highlightColor:
+                MyColors.tealGreen, // Change the highlight color as needed
+            child: Text("GITBIT>>",
+                style: GoogleFonts.montserrat(
+                    fontSize: 35, fontWeight: FontWeight.bold)),
+          ),
+        ],
+      ),
     );
   }
+}
+
+class MyColors {
+  static const Color darkGrey = Color(0xFF0F0F0F);
+  static const Color navyBlue = Color(0xFF232D3F);
+  static const Color tealGreen = Color(0xFF005B41);
+  static const Color darkCyan = Color(0xFF008170);
 }

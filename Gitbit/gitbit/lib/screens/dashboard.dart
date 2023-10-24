@@ -143,11 +143,3 @@ class MyColors {
   static const Color tealGreen = Color(0xFF005B41);
 }
 
-void main() {
-  runApp(
-    const MaterialApp(
-      home: Dashboard(
-          'your-username'), // Replace 'your-username' with the actual GitHub username.
-    ),
-  );
-}
