@@ -43,7 +43,7 @@ const LeaderBoardSchema = new mongoose.Schema({
 
 const Lead = mongoose.model('Lead', LeaderBoardSchema);
 
-mongoose.connect('mongodb+srv://ShashwatPS:s@cluster0.1alkv6j.mongodb.net/LeaderBoard', {
+mongoose.connect('mongodb+srv://ShashwatPS:1@cluster0.1alkv6j.mongodb.net/LeaderBoard', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
