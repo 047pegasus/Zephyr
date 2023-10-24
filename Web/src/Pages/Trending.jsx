@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Oval as Loader } from 'react-loader-spinner';
 import {
+    Button,
     Card,
     CardActionArea,
     CardContent,
@@ -120,39 +121,28 @@ export default function Trending() {
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
-    const handleYearChange = (event) => {
-        setSelectedYear(event.target.value);
-    };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
+    const handleSearchClick = async () => {
+        try {
+            if (searchQuery.trim() === '') {
                 const response = await axios.get('https://api.github.com/search/repositories?q=created:%3E2021-01-01&sort=stars&order=desc');
                 const orgData = response.data;
                 setData(orgData);
-            } catch (error) {
-                console.error('Error fetching data:', error);
+            } else {
+                const response = await axios.get(`https://api.github.com/search/repositories?q=${searchQuery}+is:featured`);
+                const orgData = response.data;
+                setData(orgData);
             }
-        };
-        fetchData();
-    }, []);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
 
     useEffect(() => {
-        let query = searchQuery;
-        const fetchData = async () => {
-            try {
-                setData(null);
-                setTimeout(async () => {
-                    const response = await axios.get('https://api.github.com/search/repositories?q=is:featured');
-                    const orgData = response.data;
-                    setData(orgData);
-                }, 1000);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        fetchData();
-    }, [searchQuery]);
+        handleSearchClick();
+    }, []);
+
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -192,10 +182,7 @@ export default function Trending() {
                         >
                             TRENDING REPOS
                         </Typography>
-                        <div
-                            className="search-container"
-                            sx={{ position: 'relative', marginLeft: 'auto' }}
-                        >
+                        <div className="search-container" sx={{ position: 'relative', marginLeft: 'auto' }}>
                             <SearchIcon sx={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', marginLeft: '8px', color: '#93B1A6' }} />
                             <InputBase
                                 placeholder="Search..."
@@ -206,6 +193,9 @@ export default function Trending() {
                                     paddingLeft: '32px',
                                 }}
                             />
+                            <Button variant="contained" color="primary" onClick={handleSearchClick}>
+                                Search
+                            </Button>
                         </div>
                     </Toolbar>
                 </AppBar>
@@ -245,7 +235,9 @@ export default function Trending() {
                             <Org key={repository.id} repo={repository} />
                         ))
                     ) : (
-                        <Loader color="#183D3D" height={50} width={50} />
+                        data && data.items && data.items.length === 0 ? null : (
+                            <Loader color="#183D3D" height={50} width={50} />
+                        )
                     )}
                 </Box>
             </Box>
