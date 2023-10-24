@@ -9,7 +9,8 @@ class Dashboard extends StatelessWidget {
   const Dashboard(this.username, {Key? key}) : super(key: key);
 
   Future<Map<String, dynamic>> fetchUserData() async {
-    final response = await http.get(Uri.parse('https://api.github.com/users/$username'));
+    final response =
+        await http.get(Uri.parse('https://api.github.com/users/$username'));
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
@@ -48,15 +49,22 @@ class Dashboard extends StatelessWidget {
                         radius: 60,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    buildInfoTile("Name", userData['name'] ?? 'N/A', Icons.person),
-                    buildInfoTile("Location", userData['location'] ?? 'N/A', Icons.location_on),
+                    const SizedBox(height: 20),
+                    buildInfoTile(
+                        "Name", userData['name'] ?? 'N/A', Icons.person),
+                    buildInfoTile("Location", userData['location'] ?? 'N/A',
+                        Icons.location_on),
                     buildInfoTile("Bio", userData['bio'] ?? 'N/A', Icons.info),
-                    buildInfoTile("Followers", "${userData['followers'] ?? 0}", Icons.people),
-                    buildInfoTile("Following", "${userData['following'] ?? 0}", Icons.people),
-                    buildInfoTile("Public Repositories", "${userData['public_repos'] ?? 0}", Icons.folder),
-                    buildInfoTile("Public Gists", "${userData['public_gists'] ?? 0}", Icons.code),
-                    buildInfoTile("Website", userData['blog'] ?? 'N/A', Icons.web),
+                    buildInfoTile("Followers", "${userData['followers'] ?? 0}",
+                        Icons.people),
+                    buildInfoTile("Following", "${userData['following'] ?? 0}",
+                        Icons.people),
+                    buildInfoTile("Public Repositories",
+                        "${userData['public_repos'] ?? 0}", Icons.folder),
+                    buildInfoTile("Public Gists",
+                        "${userData['public_gists'] ?? 0}", Icons.code),
+                    buildInfoTile(
+                        "Website", userData['blog'] ?? 'N/A', Icons.web),
                   ],
                 ),
               ),
@@ -72,7 +80,8 @@ class Dashboard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                   ),
                   onPressed: () {
-                   Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=>MyApp()))
+                    Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (_) => const MyApp()));
                   },
                   child: const Text(
                     "Login",
@@ -98,7 +107,7 @@ class Dashboard extends StatelessWidget {
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [MyColors.navyBlue, MyColors.tealGreen],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -112,14 +121,14 @@ class Dashboard extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
         ),
         subtitle: Text(
           value,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -136,8 +145,9 @@ class MyColors {
 
 void main() {
   runApp(
-    MaterialApp(
-      home: Dashboard('your-username'), // Replace 'your-username' with the actual GitHub username.
+    const MaterialApp(
+      home: Dashboard(
+          'your-username'), // Replace 'your-username' with the actual GitHub username.
     ),
   );
 }

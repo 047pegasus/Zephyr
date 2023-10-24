@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gitbit/screens/login.dart';
+import 'package:gitbit/screens/login2.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:shimmer/shimmer.dart';
@@ -19,7 +20,7 @@ class _WelcomeState extends State<Welcome> {
     Future.delayed(const Duration(seconds: 3), () {
      {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Login()),
+          MaterialPageRoute(builder: (context) => SignInPage()),
         );
       }
     });
@@ -33,11 +34,11 @@ class _WelcomeState extends State<Welcome> {
           children: [
            
             Shimmer.fromColors(
-              baseColor:const Color(0xff005B41), // Change the base color as needed
+              baseColor:Colors.white, // Change the base color as needed
               highlightColor:
-                const Color(0xff008170), // Change the highlight color as needed
+               MyColors.tealGreen, // Change the highlight color as needed
               child: Text(
-                "GITBIT>>",style:GoogleFonts.montserrat(fontSize:30,fontWeight:FontWeight.bold)
+                "GITBIT>>",style:GoogleFonts.montserrat(fontSize:35,fontWeight:FontWeight.bold)
               ),
             ),
           ],

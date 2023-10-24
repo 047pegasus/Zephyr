@@ -12,20 +12,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(Mypp());
+  runApp(const Mypp());
 }
 
 class Mypp extends StatelessWidget {
+  const Mypp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: LoginScreen(),
     );
   }
 }
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 
@@ -49,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
     flutterWebviewPlugin.onUrlChanged.listen((url) async {
       if (url.startsWith(redirectUrl)) {
         final code = Uri.parse(url).queryParameters['code'];
-        final tokenUrl = 'https://github.com/login/oauth/access_token';
+        const tokenUrl = 'https://github.com/login/oauth/access_token';
         final response = await http.post(
           Uri.parse(tokenUrl),
           headers: {
@@ -70,9 +75,11 @@ class _LoginScreenState extends State<LoginScreen> {
           // User is logged in with GitHub.
           await registerUserOnFirebase(userCredential.user!);
           saveLoginStatus(true);
+          // ignore: use_build_context_synchronously
           Navigator.pop(context, userCredential.user);
         } else {
           // Handle login error.
+          // ignore: use_build_context_synchronously
           Navigator.pop(context, null);
         }
         flutterWebviewPlugin.close();
@@ -106,7 +113,7 @@ Future<void> registerUserOnFirebase(User user) async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('GitHub Login'),
+        title: const Text('GitHub Login'),
       ),
       body: Center(
         child: Column(
@@ -116,6 +123,7 @@ Future<void> registerUserOnFirebase(User user) async {
               onPressed: () async {
                 final user = await signInWithGitHub(context);
                 if (user != null) {
+                  // ignore: use_build_context_synchronously
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -126,7 +134,7 @@ Future<void> registerUserOnFirebase(User user) async {
                   // Handle login error.
                 }
               },
-              child: Text('GitHub Login'),
+              child: const Text('GitHub Login'),
             ),
           ],
         ),
@@ -138,15 +146,16 @@ Future<void> registerUserOnFirebase(User user) async {
 class ProfilePage extends StatelessWidget {
   final User user;
 
-  ProfilePage(this.user);
+  ProfilePage(this.user, {super.key});
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> _logOut(BuildContext context) async {
     await _auth.signOut();
     await clearLoginStatus();
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => LoginScreen(),
+      builder: (context) => const LoginScreen(),
     ));
   }
 
@@ -159,7 +168,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Profile'),
+        title: const Text('User Profile'),
       ),
       body: Center(
         child: Column(
@@ -170,7 +179,7 @@ class ProfilePage extends StatelessWidget {
               onPressed: () {
                 _logOut(context);
               },
-              child: Text('Log Out'),
+              child: const Text('Log Out'),
             ),
           ],
         ),
