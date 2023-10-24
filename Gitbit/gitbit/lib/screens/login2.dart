@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gitbit/screens/colors.dart';
+import 'package:gitbit/screens/signin.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignInPage extends StatelessWidget {
@@ -26,7 +27,8 @@ class SignInPage extends StatelessWidget {
             SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
-               
+              
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>ButtonPage()));
               },
               child: Text(
                 'Sign In',
