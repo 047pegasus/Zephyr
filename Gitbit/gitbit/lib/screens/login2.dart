@@ -15,19 +15,19 @@ class SignInPage extends StatelessWidget {
             Text(
               'WELCOME TO GITBIT',
               style: GoogleFonts.montserrat(
-                fontSize: 24,
+                fontSize: 20,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(
-              height: 200,
+              height: 300,
               child:   Lottie.asset('assets/xwirnzarW3.json'),
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => ButtonPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (_) => ButtonPage()));
               },
               child: Text(
                 'Sign In',
