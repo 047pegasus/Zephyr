@@ -328,10 +328,11 @@ function Org(props) {
             style={{
                 margin: 25,
                 width: 300,
-                minHeight: 200,
-                marginTop: 45,
-                backgroundColor: 'rgba(4, 13, 18, 0.7)',
-                color: '#93B1A6',
+                minHeight: 300,
+                borderRadius: 12,
+                overflow: 'hidden',
+                backgroundColor: '#0d1117',
+                boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.1)',
                 cursor: 'pointer',
             }}
             onClick={() => {
@@ -342,25 +343,23 @@ function Org(props) {
                 <CardMedia
                     component="img"
                     style={{
-                        objectFit: 'contain',
+                        objectFit: 'cover',
                         width: '100%',
-                        height: '200px',
-                        borderBottom: '1px solid white',
+                        height: '150px',
                     }}
                     image={props.org.image_url}
                     alt="Organization Image"
                 />
-                <CardContent>
+                <CardContent style={{ padding: '16px' }}>
                     <Typography
-                        gutterBottom
-                        variant="h5"
+                        variant="h6"
                         component="div"
-                        color={'white'}
-                        className={'Title'}
+                        color={'#58a6ff'}
+                        style={{ fontWeight: '600', marginBottom: '8px' }}
                     >
                         {props.org.name}
                     </Typography>
-                    <Typography variant="body2" color="white" className={'Description'}>
+                    <Typography variant="body2" color="#c9d1d9">
                         {props.org.description}
                     </Typography>
                 </CardContent>
