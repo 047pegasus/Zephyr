@@ -16,8 +16,8 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final List<String> welcomeTexts = [
     'Welcome to GitBit',
-    'Discover Amazing Features',
-    'Join Our Community',
+    'Leaderboard',
+    'Use Our Tools',
   ];
 
   int _currentSlideIndex = 0; // Track the current slide index
@@ -40,15 +40,15 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
             SizedBox(
-              height: 300,
+              height: 200,
               child: CarouselSlider(
                 items: [
                   _buildSlide('assets/xwirnzarW3.json', 'Text 1'),
-                  _buildSlide('assets/E5Tgenj6S5.json', 'Text 2'),
-                  _buildSlide('assets/animation3.json', 'Text 3'),
+                  _buildSlide('assets/ULflzJpeCU.json', 'Text 2'),
+                  _buildSlide('assets/kpEG3IE5gY.json', 'Text 3'),
                 ],
                 options: CarouselOptions(
-                  height: 300,
+                  height: 200,
                   enlargeCenterPage: true,
                   onPageChanged: (index, reason) {
                     setState(() {
@@ -61,7 +61,8 @@ class _SignInPageState extends State<SignInPage> {
             SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
-                // Handle the Sign-In action
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => SignInPage()));
               },
               child: Text(
                 'Sign In',
