@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gitbit/screens/signin.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:lottie/lottie.dart';
 
 class SignInPage extends StatelessWidget {
   @override
@@ -20,14 +20,14 @@ class SignInPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Container(
+            SizedBox(
               height: 200,
-              child: AutoSlider(),
+              child:   Lottie.asset('assets/xwirnzarW3.json'),
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) =>ButtonPage()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => ButtonPage()));
               },
               child: Text(
                 'Sign In',
@@ -44,69 +44,6 @@ class SignInPage extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class AutoSlider extends StatefulWidget {
-  @override
-  _AutoSliderState createState() => _AutoSliderState();
-}
-
-class _AutoSliderState extends State<AutoSlider> {
-  PageController _controller = PageController();
-  int _currentPage = 0;
-
-  List<Widget> slides = [
-    SlideItem(
-      icon: Icons.code,
-      text: 'Code it ',
-    ),
-    SlideItem(
-      icon: Icons.work,
-      text: 'Work it',
-    ),
-    SlideItem(
-      icon: Icons.leaderboard,
-      text: 'leaderboard',
-    ),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _autoSlide();
-  }
-
-  Future<void> _autoSlide() async {
-    await Future.delayed(const Duration(seconds: 5));
-    if (_currentPage < slides.length - 1) {
-      _currentPage++;
-    } else {
-      _currentPage = 0;
-    }
-    _controller.animateToPage(
-      _currentPage,
-      duration: Duration(milliseconds: 200),
-      curve: Curves.easeInOut,
-    );
-    _autoSlide();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PageView.builder(
-      controller: _controller,
-      itemCount: slides.length,
-      itemBuilder: (context, index) {
-        return slides[index];
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }
 

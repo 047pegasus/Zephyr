@@ -1,14 +1,14 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:gitbit/screens/house.dart';
 
-import 'package:gitbit/screens/dashboard.dart';
+
 import 'package:gitbit/screens/leaderboard.dart';
 import 'package:gitbit/screens/tools.dart';
 
 class Homescreen extends StatefulWidget {
-  final String username;
 
-  const Homescreen(this.username, {Key? key}) : super(key: key);
+  const Homescreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -25,7 +25,7 @@ class _HomescreenState extends State<Homescreen> {
     super.initState();
 
     _pages = [
-      Dashboard(widget.username),
+      Home(),
       const Leaderboard(),
        // Use the passed username
       const Tools(),

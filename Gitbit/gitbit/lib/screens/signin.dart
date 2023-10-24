@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:gitbit/model.dart/page.dart';
 
 class ButtonPage extends StatelessWidget {
   @override
@@ -40,15 +39,18 @@ class ButtonPage extends StatelessWidget {
               onPressed: () {
                 // Add your Google sign-in logic here
               },
-              icon: Image.asset('assets/google_logo.png', width: 30, height: 30),
+              icon:
+                  Image.asset('assets/google_logo.png', width: 30, height: 30),
               label: 'Sign In with Google',
             ),
             SizedBox(height: 20.0),
             buildElevatedButtonWithIcon(
               onPressed: () {
-                // Add your GitHub sign-in logic here
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_)=>MyUserDetailsPage()));
               },
-              icon: Image.asset('assets/github_logo.png', width: 30, height: 30),
+              icon:
+                  Image.asset('assets/github_logo.png', width: 30, height: 30),
               label: 'Sign In with GitHub',
             ),
           ],
