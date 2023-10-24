@@ -137,6 +137,23 @@ export default function Trending() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        let query = searchQuery;
+        const fetchData = async () => {
+            try {
+                setData(null);
+                setTimeout(async () => {
+                    const response = await axios.get('https://api.github.com/search/repositories?q=is:featured');
+                    const orgData = response.data;
+                    setData(orgData);
+                }, 1000);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData();
+    }, [searchQuery]);
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <CssBaseline />
