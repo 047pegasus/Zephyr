@@ -29,7 +29,8 @@ class ButtonPage extends StatelessWidget {
             SizedBox(height: 30.0),
             buildElevatedButtonWithIcon(
               onPressed: () {
-                // Add your logic here
+            Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_)=>MyUserDetailsPage()));
               },
               icon: Image.asset('assets/email_logo.png', width: 30, height: 30),
               label: 'Sign In with Email',
@@ -37,7 +38,8 @@ class ButtonPage extends StatelessWidget {
             SizedBox(height: 20.0),
             buildElevatedButtonWithIcon(
               onPressed: () {
-                // Add your Google sign-in logic here
+            Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_)=>MyUserDetailsPage()));
               },
               icon:
                   Image.asset('assets/google_logo.png', width: 30, height: 30),
@@ -50,7 +52,7 @@ class ButtonPage extends StatelessWidget {
                     context, MaterialPageRoute(builder: (_)=>MyUserDetailsPage()));
               },
               icon:
-                  Image.asset('assets/github_logo.png', width: 30, height: 30),
+                  Image.asset('assets/github_logo.png', width: 40, height: 40),
               label: 'Sign In with GitHub',
             ),
           ],

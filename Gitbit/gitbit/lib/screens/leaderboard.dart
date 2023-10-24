@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gitbit/model.dart/page.dart';
 
 class Leaderboard extends StatefulWidget {
   const Leaderboard({super.key});
@@ -12,7 +11,7 @@ class _LeaderboardState extends State<Leaderboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    backgroundColor: MyColors.darkGrey,
+    backgroundColor:Colors.black,
       body: Container(
         alignment: Alignment.center,
         child: const Text("leaderboard",style: TextStyle(color: Colors.white)),)

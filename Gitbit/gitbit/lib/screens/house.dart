@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gitbit/model.dart/page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,7 +11,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     backgroundColor:MyColors.darkGrey,
+     backgroundColor:Colors.black,
       body: Container(
         alignment: Alignment.center,
         child: const Text("leaderboard1",style: TextStyle(color: Colors.white)),)

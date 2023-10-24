@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:gitbit/screens/login2.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:shimmer/shimmer.dart';
 
 class Welcome extends StatefulWidget {
@@ -31,11 +29,15 @@ class _WelcomeState extends State<Welcome> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          CircleAvatar(
+            radius: 55,
+            backgroundImage: AssetImage("assets/gitbit.jpeg"),
+          ),
+          SizedBox(height: 20), // Space between image and text
           Shimmer.fromColors(
             baseColor: Colors.white, // Change the base color as needed
-            highlightColor:
-                MyColors.tealGreen, // Change the highlight color as needed
-            child: Text("GITBIT>>",
+            highlightColor: MyColors.tealGreen, // Change the highlight color as needed
+            child: Text("GITBIT",
                 style: GoogleFonts.montserrat(
                     fontSize: 35, fontWeight: FontWeight.bold)),
           ),
