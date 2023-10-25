@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:gitbit/screens/signin.dart';
 import 'package:lottie/lottie.dart';
 
 void main() {
@@ -62,7 +63,7 @@ class _SignInPageState extends State<SignInPage> {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => SignInPage()));
+                    context, MaterialPageRoute(builder: (_) => ButtonPage()));
               },
               child: Text(
                 'Sign In',

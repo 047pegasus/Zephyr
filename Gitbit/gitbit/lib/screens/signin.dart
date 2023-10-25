@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gitbit/model.dart/page.dart';
+import 'package:gitbit/screens/signup.dart';
 
 class ButtonPage extends StatelessWidget {
   @override
@@ -29,8 +30,7 @@ class ButtonPage extends StatelessWidget {
             SizedBox(height: 30.0),
             buildElevatedButtonWithIcon(
               onPressed: () {
-            Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_)=>MyUserDetailsPage()));
+              
               },
               icon: Image.asset('assets/email_logo.png', width: 30, height: 30),
               label: 'Sign In with Email',
@@ -38,8 +38,7 @@ class ButtonPage extends StatelessWidget {
             SizedBox(height: 20.0),
             buildElevatedButtonWithIcon(
               onPressed: () {
-            Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_)=>MyUserDetailsPage()));
+               
               },
               icon:
                   Image.asset('assets/google_logo.png', width: 30, height: 30),
@@ -48,12 +47,22 @@ class ButtonPage extends StatelessWidget {
             SizedBox(height: 20.0),
             buildElevatedButtonWithIcon(
               onPressed: () {
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_)=>MyUserDetailsPage()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => MyUserDetailsPage()));
               },
               icon:
                   Image.asset('assets/github_logo.png', width: 40, height: 40),
               label: 'Sign In with GitHub',
+            ),
+            SizedBox(height: 20.0),
+            TextButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>Signup()));
+              },
+              child: Text(
+                'New User? Sign Up',
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
             ),
           ],
         ),

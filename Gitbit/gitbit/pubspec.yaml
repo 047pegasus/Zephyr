@@ -49,6 +49,7 @@ dependencies:
   realm: ^1.2.0
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
+  simple_ripple_animation: ^0.0.7
   webview_flutter: ^3.0.4
 
 dev_dependencies:
