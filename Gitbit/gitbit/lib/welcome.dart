@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gitbit/screens/login2.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({super.key});
@@ -29,10 +30,20 @@ class _WelcomeState extends State<Welcome> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius: 55,
+              RippleAnimation(
+            child: CircleAvatar(
+              minRadius: 75,
+              maxRadius: 75,
             backgroundImage: AssetImage("assets/gitbit.jpeg"),
           ),
+          color: MyColors.navyBlue,
+            delay: const Duration(milliseconds: 500),
+            repeat: true,
+            minRadius: 75,
+            ripplesCount: 6,
+            duration: const Duration(milliseconds: 6 * 500),
+          ),
+          
           SizedBox(height: 20), // Space between image and text
           Shimmer.fromColors(
             baseColor: Colors.white, // Change the base color as needed
