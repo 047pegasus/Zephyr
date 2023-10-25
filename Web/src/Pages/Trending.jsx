@@ -113,6 +113,7 @@ export default function Trending() {
     const [open, setOpen] = React.useState(true);
     const [data, setData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [sortBy, setSortBy] = useState(null);
 
     const toggleDrawer = () => {
         setOpen(!open);
@@ -124,25 +125,34 @@ export default function Trending() {
 
     const handleSearchClick = async () => {
         try {
+            let response;
+
             if (searchQuery.trim() === '') {
-                const response = await axios.get('https://api.github.com/search/repositories?q=created:%3E2021-01-01&sort=stars&order=desc');
-                const orgData = response.data;
-                setData(orgData);
-            } else {
-                const response = await axios.get(`https://api.github.com/search/repositories?q=${searchQuery}+is:featured`);
-                const orgData = response.data;
-                setData(orgData);
+                response = await axios.get('https://api.github.com/search/repositories?q=created:%3E2021-01-01&sort=stars&order=desc');
             }
+            else {
+                response = await axios.get(`https://api.github.com/search/repositories?q=${searchQuery}+is:featured&sort=${sortBy}&order=desc`);
+            }
+            const orgData = response.data;
+            if (sortBy === 'stars') {
+                orgData.items.sort((a, b) => b.stargazers_count - a.stargazers_count);
+            }
+            else if (sortBy === 'forks') {
+                orgData.items.sort((a, b) => b.forks_count - a.forks_count);
+            }
+            setData(orgData);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
+    const handleSortClick = (criteria) => {
+        setSortBy(criteria);
+    };
 
     useEffect(() => {
         handleSearchClick();
-    }, []);
-
+    }, [sortBy]);
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -182,7 +192,8 @@ export default function Trending() {
                         >
                             TRENDING REPOS
                         </Typography>
-                        <div className="search-container" sx={{ position: 'relative', marginLeft: 'auto' }}>
+
+                        <div className="search-container" sx={{ position: 'relative', marginLeft: 'auto', marginRight: '16px' }}>
                             <SearchIcon sx={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', marginLeft: '8px', color: '#93B1A6' }} />
                             <InputBase
                                 placeholder="Search..."
@@ -193,8 +204,27 @@ export default function Trending() {
                                     paddingLeft: '32px',
                                 }}
                             />
-                            <Button variant="contained" color="primary" onClick={handleSearchClick}>
+                            <Button variant="contained" color="primary" onClick={handleSearchClick} sx={{ marginLeft: '8px' }}>
                                 Search
+                            </Button>
+                        </div>
+
+                        <div sx={{ marginLeft: '16px' }}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => handleSortClick('stars')}
+                                sx={{ marginLeft: '8px' }}
+                            >
+                                Sort by Stars
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => handleSortClick('forks')}
+                                sx={{ marginLeft: '8px' }}
+                            >
+                                Sort by Forks
                             </Button>
                         </div>
                     </Toolbar>
