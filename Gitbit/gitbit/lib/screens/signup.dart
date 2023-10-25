@@ -48,6 +48,7 @@ class Signup extends StatelessWidget {
               ),
               style: ElevatedButton.styleFrom(backgroundColor:MyColors.tealGreen,
             ),
+            )
           ],
         ),
       ),
