@@ -81,27 +81,12 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
           ),
           SizedBox(height: 16.0),
           Text('Select Your Interests:', style: TextStyle(color: Colors.white, fontSize: 16)),
-          CheckboxListTile(
-            title: Text('Technology', style: TextStyle(color: Colors.white)),
-            value: interests.contains('Technology'),
-            onChanged: (value) {
-              toggleInterest('Technology');
-            },
-          ),
-          CheckboxListTile(
-            title: Text('Sports', style: TextStyle(color: Colors.white)),
-            value: interests.contains('Sports'),
-            onChanged: (value) {
-              toggleInterest('Sports');
-            },
-          ),
-          CheckboxListTile(
-            title: Text('Art', style: TextStyle(color: Colors.white)),
-            value: interests.contains('Art'),
-            onChanged: (value) {
-              toggleInterest('Art');
-            },
-          ),
+          InterestCheckboxListTile('Technology', interests, toggleInterest),
+          InterestCheckboxListTile('Sports', interests, toggleInterest),
+          InterestCheckboxListTile('Art', interests, toggleInterest),
+          UserDetailsTextField(usernameController, 'Additional Field 1', Icons.person),
+          UserDetailsTextField(usernameController, 'Additional Field 2', Icons.person),
+          UserDetailsTextField(usernameController, 'Additional Field 3', Icons.person),
           SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: () {
@@ -159,4 +144,21 @@ class UserDetailsTextField extends StatelessWidget {
   }
 }
 
+class InterestCheckboxListTile extends StatelessWidget {
+  final String title;
+  final List<String> selectedInterests;
+  final Function(String) onInterestToggled;
 
+  InterestCheckboxListTile(this.title, this.selectedInterests, this.onInterestToggled);
+
+  @override
+  Widget build(BuildContext context) {
+    return CheckboxListTile(
+      title: Text(title, style: TextStyle(color: Colors.white)),
+      value: selectedInterests.contains(title),
+      onChanged: (value) {
+        onInterestToggled(title);
+      },
+    );
+  }
+}

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gitbit/model.dart/page.dart';
-import 'package:gitbit/screens/signup.dart';
 
-class ButtonPage extends StatelessWidget {
+class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,57 +11,42 @@ class ButtonPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Sign In',
-              style: TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(height: 10.0), // Add spacing
-            Text(
               'Welcome to Gitbit',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 30.0),
+            SizedBox(height: 20.0), // Add spacing
             buildElevatedButtonWithIcon(
               onPressed: () {
-              
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_) => MyUserDetailsPage()));
               },
-              icon: Image.asset('assets/email_logo.png', width: 30, height: 30),
-              label: 'Sign In with Email',
-            ),
-            SizedBox(height: 20.0),
-            buildElevatedButtonWithIcon(
-              onPressed: () {
-               
-              },
-              icon:
-                  Image.asset('assets/google_logo.png', width: 30, height: 30),
+              icon: Image.asset('assets/google_logo.png', width: 30, height: 30),
               label: 'Sign In with Google',
             ),
             SizedBox(height: 20.0),
             buildElevatedButtonWithIcon(
               onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => MyUserDetailsPage()));
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_) => MyUserDetailsPage()));
               },
-              icon:
-                  Image.asset('assets/github_logo.png', width: 40, height: 40),
+              icon: Image.asset('assets/github_logo.png', width: 40, height: 40),
               label: 'Sign In with GitHub',
             ),
             SizedBox(height: 20.0),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>Signup()));
+                  Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => MyUserDetailsPage()));
               },
+              
               child: Text(
-                'New User? Sign Up',
+                'Sign Up',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
+              style: ElevatedButton.styleFrom(backgroundColor:MyColors.tealGreen,
             ),
           ],
         ),
