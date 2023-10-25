@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gitbit/screens/navigation.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MyColors {
   static const Color darkGrey = Color(0xFF0F0F0F);
@@ -8,7 +6,6 @@ class MyColors {
   static const Color tealGreen = Color(0xFF005B41);
   static const Color darkCyan = Color(0xFF008170);
 }
-
 
 class MyUserDetailsPage extends StatelessWidget {
   @override
@@ -20,7 +17,7 @@ class MyUserDetailsPage extends StatelessWidget {
         children: [
           Text(
             "USER DETAILS",
-            style: GoogleFonts.montserrat(fontSize: 28, color: Colors.white),
+            style: TextStyle(fontSize: 28, color: Colors.white),
           ),
           SizedBox(height: 20),
           UserDetailsForm(),
@@ -37,10 +34,23 @@ class UserDetailsForm extends StatefulWidget {
 
 class _UserDetailsFormState extends State<UserDetailsForm> {
   final TextEditingController usernameController = TextEditingController();
-  final TextEditingController githubUsernameController =
-      TextEditingController();
+  final TextEditingController githubUsernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+  final TextEditingController bioController = TextEditingController();
+  bool receiveNotifications = false;
+  List<String> interests = [];
+
+  void toggleInterest(String interest) {
+    setState(() {
+      if (interests.contains(interest)) {
+        interests.remove(interest);
+      } else {
+        interests.add(interest);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,16 +60,53 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           UserDetailsTextField(usernameController, 'Username', Icons.person),
-          UserDetailsTextField(
-              githubUsernameController, 'GitHub Username', Icons.code),
+          UserDetailsTextField(githubUsernameController, 'GitHub Username', Icons.code),
           UserDetailsTextField(emailController, 'Email ID', Icons.email),
-          UserDetailsTextField(passwordController, 'Password', Icons.lock,
-              isPassword: true),
+          UserDetailsTextField(passwordController, 'Password', Icons.lock, isPassword: true),
+          UserDetailsTextField(ageController, 'Age', Icons.cake),
+          UserDetailsTextField(bioController, 'Bio', Icons.info, maxLines: 3),
+          Row(
+            children: [
+              Text('Receive Notifications', style: TextStyle(color: Colors.white)),
+              Switch(
+                value: receiveNotifications,
+                onChanged: (value) {
+                  setState(() {
+                    receiveNotifications = value;
+                  });
+                },
+                activeColor: MyColors.tealGreen,
+              ),
+            ],
+          ),
+          SizedBox(height: 16.0),
+          Text('Select Your Interests:', style: TextStyle(color: Colors.white, fontSize: 16)),
+          CheckboxListTile(
+            title: Text('Technology', style: TextStyle(color: Colors.white)),
+            value: interests.contains('Technology'),
+            onChanged: (value) {
+              toggleInterest('Technology');
+            },
+          ),
+          CheckboxListTile(
+            title: Text('Sports', style: TextStyle(color: Colors.white)),
+            value: interests.contains('Sports'),
+            onChanged: (value) {
+              toggleInterest('Sports');
+            },
+          ),
+          CheckboxListTile(
+            title: Text('Art', style: TextStyle(color: Colors.white)),
+            value: interests.contains('Art'),
+            onChanged: (value) {
+              toggleInterest('Art');
+            },
+          ),
           SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (_) => Homescreen()));
+              // Handle form submission, including interests
+              print('Interests: $interests');
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(MyColors.navyBlue),
@@ -77,9 +124,10 @@ class UserDetailsTextField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final bool isPassword;
+  final int maxLines;
 
   UserDetailsTextField(this.controller, this.hintText, this.icon,
-      {this.isPassword = false});
+      {this.isPassword = false, this.maxLines = 1});
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +136,7 @@ class UserDetailsTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         obscureText: isPassword,
+        maxLines: maxLines,
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           hintText: hintText,
@@ -109,3 +158,5 @@ class UserDetailsTextField extends StatelessWidget {
     );
   }
 }
+
+
