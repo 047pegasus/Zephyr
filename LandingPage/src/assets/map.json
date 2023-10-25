@@ -1,0 +1,77 @@
+{
+    "type" : "Map",
+    "maps" : [
+        {
+            "text" : "IND",
+            "size":1.0,
+            "country" : "India",
+            "city" : "Delhi" ,
+            "lat" : 28.62346447237566,
+            "lng" : 77.21396079523946
+        },
+        {
+            "text" : "IND",
+            "size":1.0,
+            "country" : "India",
+            "city" : "Bhopal" ,
+            "lat" : 23.25721687771545,
+            "lng" : 77.21396079523946
+        },
+        {
+            "text" : "UAE",
+            "size":1.0,
+            "country" : "United Arab Emirates",
+            "city" : "Dubai" ,
+            "lat" : 25.57062233191941,
+            "lng" : 55.32683448317422
+        },
+        {
+            "text" : "IND",
+            "size":1.0,
+            "country" : "India",
+            "city" : "Chennai" ,
+            "lat" : 13.418479505411227,
+            "lng" : 81.5731999115924
+        },
+        {
+            "text" : "IND",
+            "size":1.0,
+            "country" : "India",
+            "city" : "Patna" ,
+            "lat" : 33.59151046168788,
+            "lng" : 76.04084531209163
+        },
+        {
+            "text" : "USA",
+            "size":1.0,
+            "country" : "United States Of America",
+            "city" : "Chicago" ,
+            "lat" : 41.80108006132078,
+            "lng" : -87.82738356793844
+        },
+        {
+            "text" : "USA",
+            "size":1.0,
+            "country" : "United States Of America",
+            "city" : "New York" ,
+            "lat" : 40.18563893193234,
+            "lng" :  -71.6313662671319
+        },
+        {
+            "text" : "CHN",
+            "size":1.0,
+            "country" : "China",
+            "city" : "Beijing" ,
+            "lat" : 40.93814280346875,
+            "lng" :  115.95517750832418
+        },
+        {
+            "text" : "RUS",
+            "size":1.0,
+            "country" : "Russia",
+            "city" : "Moscow" ,
+            "lat" : 56.57052232243,
+            "lng" : 37.848225774963815
+        }
+    ]
+}
