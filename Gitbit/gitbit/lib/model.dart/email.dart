@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: EmailPasswordSignInPage(),
-  ));
-}
+import '../screens/navigation.dart';
+
 
 class EmailPasswordSignInPage extends StatelessWidget {
   @override
@@ -56,7 +53,7 @@ class _EmailPasswordSignInFormState extends State<EmailPasswordSignInForm> {
                   // Handle sign-in logic here
                   // You can add authentication logic to check the email and password
                   // If successful, you can navigate to the HomeScreen.
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) =>Homescreen()));
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(MyColors.navyBlue),
@@ -92,19 +89,7 @@ class _EmailPasswordSignInFormState extends State<EmailPasswordSignInForm> {
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Screen'),
-      ),
-      body: Center(
-        child: Text('Welcome to the Home Screen'),
-      ),
-    );
-  }
-}
+
 
 class MyColors {
   static const Color darkGrey = Color(0xFF0F0F0F);
