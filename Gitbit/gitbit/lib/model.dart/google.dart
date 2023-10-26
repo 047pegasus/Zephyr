@@ -1,18 +1,19 @@
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-Future<void> sendUserDataToServer(Map<String, dynamic> userData) async {
-  final response = await http.post(
-    Uri.parse('http://your_server/login'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode({'userData': userData}),
+Future<UserCredential> signInWithGoogle() async {
+  // Trigger the authentication flow
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+  // Create a new credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+    idToken: googleAuth?.idToken,
   );
 
-  if (response.statusCode == 200) {
-    // Handle success
-  } else {
-    // Handle errors
-  }
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
 }
