@@ -1,8 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:gitbit/model.dart/page.dart';
-import 'package:gitbit/screens/signup.dart';
+import 'package:gitbit/model.dart/email.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: ButtonPage(),
+    );
+  }
+}
 
 class ButtonPage extends StatelessWidget {
+  final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
+
+  Future<void> _handleSignInWithGoogle(BuildContext context) async {
+    try {
+      await googleSignIn.signOut(); // Sign out if already signed in
+
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      if (googleUser != null) {
+        // User signed in, you can access their information in googleUser
+        print('Google User ID: ${googleUser.id}');
+        print('Google User Display Name: ${googleUser.displayName}');
+        print('Google User Email: ${googleUser.email}');
+        // You can proceed to sign in or register the user within your app.
+      }
+    } catch (error) {
+      print('Google Sign-In Error: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +52,7 @@ class ButtonPage extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 10.0), // Add spacing
+            SizedBox(height: 10.0),
             Text(
               'Welcome to Gitbit',
               style: TextStyle(
@@ -30,16 +63,16 @@ class ButtonPage extends StatelessWidget {
             SizedBox(height: 30.0),
             buildElevatedButtonWithIcon(
               onPressed: () {
-              
+                   Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) =>EmailPasswordSignInForm()));
+          
               },
               icon: Image.asset('assets/email_logo.png', width: 30, height: 30),
               label: 'Sign In with Email',
             ),
             SizedBox(height: 20.0),
             buildElevatedButtonWithIcon(
-              onPressed: () {
-               
-              },
+              onPressed: () => _handleSignInWithGoogle(context),
               icon:
                   Image.asset('assets/google_logo.png', width: 30, height: 30),
               label: 'Sign In with Google',
@@ -57,7 +90,8 @@ class ButtonPage extends StatelessWidget {
             SizedBox(height: 20.0),
             TextButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>Signup()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => MyUserDetailsPage()));
               },
               child: Text(
                 'New User? Sign Up',
@@ -93,6 +127,40 @@ class ButtonPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class MyUserDetailsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('User Details'),
+      ),
+      body: Center(
+        child: Text(
+          'User Details Page',
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
+
+class Signup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sign Up'),
+      ),
+      body: Center(
+        child: Text(
+          'Sign Up Page',
+          style: TextStyle(fontSize: 24),
         ),
       ),
     );
