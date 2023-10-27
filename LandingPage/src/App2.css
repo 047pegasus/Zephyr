@@ -1,0 +1,41 @@
+                                /********************** LANDING PAGE ********************/
+
+@media (max-width: 1540px) {
+
+    #LPSignIn
+    {
+    margin-top: 3.5vh;
+    margin-right: -10vh;
+    }
+}
+
+@media (max-width: 840px)
+{
+    .hero>p
+    {
+        width: 50vh;
+    }
+}
+
+
+                                        /* NAVBAR */
+
+@media (min-width: 1400px)
+{
+    .navbar
+    {
+        width: 210vh;
+    }
+}
+
+@media (min-width: 1580px)
+{
+    .navbar
+    {
+        width: 240vh;
+    }
+}
+
+                    /******************************** MODALS *****************************/
+
+/* @media () */
